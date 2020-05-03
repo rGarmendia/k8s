@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gop-fileserver-deployment
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+    name: gop-fileserver
+ template:
+   metadata:
+     name: gop-fileserver
+     labels:
+       name: gop-fileserver
+   spec:
+     containers:
+       - name: gop-fileserver
+         image: kodekloud/fileserve
+         volumeMounts:
+           - name: data-store
+             mountPath: "/web"
+     
+     volumes:
+       - name: data-store
+         persistentVolumeClaim:
+           claimName: data-pvc  

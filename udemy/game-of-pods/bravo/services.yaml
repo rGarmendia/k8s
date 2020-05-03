@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: drupal-service
+spec:
+  selector:
+    name: drupal
+    app: drupal
+  type: NodePort
+  ports:
+    - nodePort: 30095
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drupal-mysql-service
+spec:
+  selector:
+    name: drupal-mysql
+  type: ClusterIP
+  ports:
+    - port: 3306
+      targetPort: 3306
+

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+ selector:
+   matchLabels:
+     name: wordpress
+ replicas: 2
+ template:
+   metadata:
+     name: wordpress
+     labels:
+       name: wordpress
+   spec:
+     containers: 
+       - name: wordpress
+         image: wordpress
+         volumeMounts:
+           - mountPath: "/var/www/html"
+             name: wp-pd
+     volumes:
+       - name: wp-pd
+         persistentVolumeClaim:
+           claimName: wordpress-persistent-storage
+         
+     
+  
